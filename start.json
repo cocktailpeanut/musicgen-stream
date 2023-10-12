@@ -1,0 +1,23 @@
+{
+  "daemon": true,
+  "run": [{
+    "method": "shell.run",
+    "params": {
+      "message": "python app.py",
+      "venv": "env",
+      "on": [{
+        "event": "/(http:\/\/[0-9.:]+)/",
+        "set": {
+          "url": "{{event.matches[0][1]}}"
+        },
+        "done": true
+      }]
+    }
+  }, {
+    "method": "browser.open",
+    "params": {
+      "uri": "{{input.events.url}}",
+      "target": "_blank"
+    }
+  }]
+}
